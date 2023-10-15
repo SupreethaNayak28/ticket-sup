@@ -4,8 +4,9 @@ namespace App\Providers;
 
 use App\Models\Status;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\View\View;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,8 +30,8 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         // View composer to share statuses
-        \View::composer('layouts.partials._statuses', function ($view) {
-            $statuses = \App\Status::all();
+        view::composer('layouts.partials._statuses', function ($view) {
+            $view->with('statuses',\App\Models\Status::all());
             
         });
        
